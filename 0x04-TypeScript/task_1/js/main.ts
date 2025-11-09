@@ -34,3 +34,40 @@ const director1: Director = {
 };
 
 console.log(director1);
+
+function printTeacher(firstName: string, lastName: string): string {
+  return `${firstName.charAt(0)}. ${lastName}`;
+}
+
+console.log(printTeacher('John', 'Doe')); // Output: J. Doe
+
+interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+interface StudentConstructor {
+  new (firstName: string, lastName: string): StudentClassInterface;
+}
+
+// Interface describing the class
+interface StudentClassInterface {
+  workOnHomework(): string;
+  displayName(): string;
+}
+
+// The actual class implementation
+class StudentClass implements StudentClassInterface {
+  constructor(public firstName: string, public lastName: string) {}
+
+  workOnHomework(): string {
+    return "Currently working";
+  }
+
+  displayName(): string {
+    return this.firstName;
+  }
+}
+
+// Example usage
+const student = new StudentClass("Lani", "Alebiosu");
+console.log(student.displayName());  // Output: Lani
+console.log(student.workOnHomework()); // Output: Currently working
