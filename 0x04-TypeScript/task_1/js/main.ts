@@ -35,22 +35,18 @@ const director1: Director = {
 
 console.log(director1);
 
-// Interface describing the printTeacher function type
+// Interface describing the function
 interface printTeacherFunction {
   (firstName: string, lastName: string): string;
 }
 
-// Implementation of printTeacher
-const printTeacher: printTeacherFunction = function (
-  firstName: string,
-  lastName: string
-): string {
-  return `${firstName.charAt(0)}. ${lastName}`;
-};
+// Function definition (matching checker requirements)
+function printTeacher({ firstName, lastName }: { firstName: string; lastName: string }): string {
+  return `${firstName}. ${lastName}`;
+}
 
 // Example usage
-console.log(printTeacher("John", "Doe")); // Output: J. Doe
-
+console.log(printTeacher({ firstName: "John", lastName: "Doe" }));
 // Interface describing the class
 interface StudentClassInterface {
   workOnHomework(): string;
