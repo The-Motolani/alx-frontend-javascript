@@ -3,12 +3,23 @@ import { Subjects as CppSubjects } from './subjects/Cpp';
 import { Subjects as JavaSubjects } from './subjects/Java';
 import { Subjects as ReactSubjects } from './subjects/React';
 
+export const cpp = new Cpp();
+export const java = new Java();
+export const react = new React();
+
+export const cTeacher: Teacher = {
+  firstName: "Guillaume",
+  lastName: "Salva",
+  experienceTeachingC: 10,
+};
+/*
 // Teacher object with experienceTeachingC
 export const cTeacher: Subjects.Teacher = {
   firstName: 'Guillaume',
   lastName: 'Salva',
   experienceTeachingC: 10,
-};
+}; 
+*/
 
 // Cpp
 export const cpp = new CppSubjects.Cpp();
