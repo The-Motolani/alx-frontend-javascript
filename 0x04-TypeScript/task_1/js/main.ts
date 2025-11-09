@@ -44,9 +44,6 @@ console.log(printTeacher('John', 'Doe')); // Output: J. Doe
 interface printTeacherFunction {
   (firstName: string, lastName: string): string;
 }
-interface StudentConstructor {
-  new (firstName: string, lastName: string): StudentClassInterface;
-}
 
 // Interface describing the class
 interface StudentClassInterface {
@@ -54,9 +51,20 @@ interface StudentClassInterface {
   displayName(): string;
 }
 
-// The actual class implementation
-class StudentClass implements StudentClassInterface {
-  constructor(public firstName: string, public lastName: string) {}
+// Interface describing the constructor
+interface StudentConstructor {
+  new (firstName: string, lastName: string): StudentClassInterface;
+}
+
+// Class definition
+class StudentClass {
+  firstName: string;
+  lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
   workOnHomework(): string {
     return "Currently working";
@@ -69,5 +77,5 @@ class StudentClass implements StudentClassInterface {
 
 // Example usage
 const student = new StudentClass("Lani", "Alebiosu");
-console.log(student.displayName());  // Output: Lani
-console.log(student.workOnHomework()); // Output: Currently working
+console.log(student.displayName());
+console.log(student.workOnHomework());
