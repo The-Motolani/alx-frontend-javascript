@@ -1,25 +1,75 @@
-/// <reference path="./crud.d.ts" />
+interface DirectorInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workDirectorTasks(): string;
+}
 
-import { RowID, RowElement } from './interface';
-import * as CRUD from './crud';
+interface TeacherInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workTeacherTasks(): string;
+}
 
-// Create a row
-const row: RowElement = {
-  firstName: "Guillaume",
-  lastName: "Salva",
-};
+class Director implements DirectorInterface {
+  workFromHome(): string {
+    return 'Working from home';
+  }
 
-// Insert the row
-const newRowID: RowID = CRUD.insertRow(row);
+  getCoffeeBreak(): string {
+    return 'Getting a coffee break';
+  }
 
-// Update the row with an age field
-const updatedRow: RowElement = {
-  ...row,
-  age: 23,
-};
+  workDirectorTasks(): string {
+    return 'Getting to director tasks';
+  }
+}
 
-// Call updateRow
-CRUD.updateRow(newRowID, updatedRow);
+class Teacher implements TeacherInterface {
+  workFromHome(): string {
+    return 'Cannot work from home';
+  }
 
-// Call deleteRow
-CRUD.deleteRow(newRowID);
+  getCoffeeBreak(): string {
+    return 'Cannot have a break';
+  }
+
+  workTeacherTasks(): string {
+    return 'Getting to work';
+  }
+}
+
+export function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === 'number') {
+    if (salary < 500) {
+      return new Teacher();
+    }
+  }
+  return new Director();
+}
+
+// isDirector type predicate
+export function isDirector(employee: Director | Teacher): employee is Director {
+  return employee instanceof Director;
+}
+
+// executeWork function
+export function executeWork(employee: Director | Teacher): string {
+  if (isDirector(employee)) {
+    return employee.workDirectorTasks();
+  }
+  return employee.workTeacherTasks();
+}
+
+// String literal type and teachClass function
+type Subjects = 'Math' | 'History';
+
+export function teachClass(todayClass:Subjects): string {
+  if (todayClass === 'Math') {
+    return 'Teaching Math';
+  }
+  return 'Teaching History';
+}
+
+// Example usage
+const emp1 = createEmployee(200);
+console.log(emp1.workFromHome());
