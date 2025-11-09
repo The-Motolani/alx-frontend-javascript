@@ -1,83 +1,56 @@
-// Define the Teacher interface
-interface Teacher {
-  readonly firstName: string;
-  readonly lastName: string;
-  fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
-  location: string;
-  [key: string]: any; // Allows additional dynamic attributes
+// DirectorInterface
+interface DirectorInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workDirectorTasks(): string;
 }
 
-// Example usage
-const teacher3: Teacher = {
-  firstName: 'John',
-  fullTimeEmployee: false,
-  lastName: 'Doe',
-  location: 'London',
-  contract: false,
-};
-
-console.log(teacher3);
-
-// Define the Director interface that extends Teacher
-interface Director extends Teacher {
-  numberOfReports: number;
+// TeacherInterface
+interface TeacherInterface {
+  workFromHome(): string;
+  getCoffeeBreak(): string;
+  workTeacherTasks(): string;
 }
 
-// Example Directors object
-const director1: Director = {
-  firstName: 'John',
-  lastName: 'Doe',
-  location: 'London',
-  fullTimeEmployee: true,
-  numberOfReports: 17,
-};
-
-console.log(director1);
-
-// Interface describing the function
-interface printTeacherFunction {
-  (firstName: string, lastName: string): string;
-}
-
-// Function definition (matching checker requirements)
-function printTeacher({ firstName, lastName }: { firstName: string; lastName: string }): string {
-  return `${firstName}. ${lastName}`;
-}
-
-// Example usage
-console.log(printTeacher({ firstName: "John", lastName: "Doe" }));
-// Interface describing the class
-interface StudentClassInterface {
-  workOnHomework(): string;
-  displayName(): string;
-}
-
-// Interface describing the constructor
-interface StudentConstructor {
-  new (firstName: string, lastName: string): StudentClassInterface;
-}
-
-// Class definition
-class StudentClass {
-  firstName: string;
-  lastName: string;
-
-  constructor(firstName: string, lastName: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
+//  Director class implementing DirectorInterface
+class Director implements DirectorInterface {
+  workFromHome(): string {
+    return "Working from home";
   }
 
-  workOnHomework(): string {
-    return "Currently working";
+  getCoffeeBreak(): string {
+    return "Getting a coffee break";
   }
 
-  displayName(): string {
-    return this.firstName;
+  workDirectorTasks(): string {
+    return "Getting to director tasks";
   }
 }
 
-// Example usage
-const student = new StudentClass("Lani", "Alebiosu");
-console.log(student.displayName());
-console.log(student.workOnHomework());
+// Teacher class implementing TeacherInterface
+class Teacher implements TeacherInterface {
+  workFromHome(): string {
+    return "Cannot work from home";
+  }
+
+  getCoffeeBreak(): string {
+    return "Cannot have a break";
+  }
+
+  workTeacherTasks(): string {
+    return "Getting to work";
+  }
+}
+
+// createEmployee function
+function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === "number" && salary < 500) {
+    return new Teacher();
+  } else {
+    return new Director();
+  }
+}
+
+// Test output
+console.log(createEmployee(200));   // Teacher
+console.log(createEmployee(1000)); // Director
