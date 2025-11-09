@@ -1,4 +1,3 @@
-//  Interfaces
 interface DirectorInterface {
   workFromHome(): string;
   getCoffeeBreak(): string;
@@ -11,7 +10,6 @@ interface TeacherInterface {
   workTeacherTasks(): string;
 }
 
-//  Classes
 class Director implements DirectorInterface {
   workFromHome(): string {
     return 'Working from home';
@@ -40,36 +38,38 @@ class Teacher implements TeacherInterface {
   }
 }
 
-//  createEmployee Function
-function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === 'number' && salary < 500) {
-    return new Teacher();
-  } else {
-    return new Director();
+export function createEmployee(salary: number | string): Director | Teacher {
+  if (typeof salary === 'number') {
+    if (salary < 500) {
+      return new Teacher();
+    }
   }
+  return new Director();
 }
 
-// isDirector function
+// isDirector type predicate
 export function isDirector(employee: Director | Teacher): employee is Director {
   return employee instanceof Director;
 }
 
-//  executeWork function
+// executeWork function
 export function executeWork(employee: Director | Teacher): string {
   if (isDirector(employee)) {
     return employee.workDirectorTasks();
-  } else {
-    return employee.workTeacherTasks();
   }
+  return employee.workTeacherTasks();
 }
 
-// String literal type and teachClass
+// String literal type and teachClass function
 type Subjects = 'Math' | 'History';
 
 export function teachClass(todayClass: Subjects): string {
   if (todayClass === 'Math') {
     return 'Teaching Math';
-  } else {
-    return 'Teaching History';
   }
+  return 'Teaching History';
 }
+
+// Example usage
+const emp1 = createEmployee(200);
+console.log(emp1.workFromHome());
